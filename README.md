@@ -4,9 +4,6 @@
 
 
 
-&#x20;  !\[Charity Finder in Tamil](docs/screenshot-tamil.png)
-
-
 
 A prototype web app that helps people across India find charities by cause, state, and how they want to help (donate, give goods, or volunteer).
 
