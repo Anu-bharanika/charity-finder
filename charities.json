@@ -1,0 +1,184 @@
+[
+  {
+    "id": 1,
+    "name": "Kaveri Meals Trust",
+    "cat": "Food",
+    "city": "Tiruchirappalli",
+    "region": "Tamil Nadu",
+    "help": [
+      "Donate",
+      "Volunteer"
+    ],
+    "need": "Weekend cooks",
+    "tax": true,
+    "text": "Serves free lunches to daily-wage workers and bus-stand families."
+  },
+  {
+    "id": 2,
+    "name": "Marina Children's Learning Centre",
+    "cat": "Education",
+    "city": "Chennai",
+    "region": "Tamil Nadu",
+    "help": [
+      "Volunteer",
+      "Goods"
+    ],
+    "need": "Maths tutors",
+    "text": "Evening classes and school supplies for children from nearby settlements."
+  },
+  {
+    "id": 3,
+    "name": "Vaigai Elder Care Home",
+    "cat": "Elderly",
+    "city": "Madurai",
+    "region": "Tamil Nadu",
+    "help": [
+      "Donate",
+      "Volunteer"
+    ],
+    "tax": true,
+    "text": "Residential care and medical check-ups for elders without family support."
+  },
+  {
+    "id": 4,
+    "name": "Yamuna Elder Companions",
+    "cat": "Elderly",
+    "city": "New Delhi",
+    "region": "Delhi",
+    "help": [
+      "Volunteer"
+    ],
+    "need": "Weekly visit volunteers",
+    "text": "Regular visits, errands, and hospital escorts for elders living alone."
+  },
+  {
+    "id": 5,
+    "name": "Sahyadri Green Collective",
+    "cat": "Environment",
+    "city": "Pune",
+    "region": "Maharashtra",
+    "help": [
+      "Volunteer",
+      "Donate"
+    ],
+    "need": "Planting drive volunteers",
+    "tax": true,
+    "text": "Native tree planting and lake clean-ups with local schools."
+  },
+  {
+    "id": 6,
+    "name": "Konkan Health Camps",
+    "cat": "Health",
+    "city": "Ratnagiri",
+    "region": "Maharashtra",
+    "help": [
+      "Donate",
+      "Volunteer"
+    ],
+    "need": "Nurses and lab staff",
+    "tax": true,
+    "text": "Free monthly eye, dental, and diabetes screening in coastal villages."
+  },
+  {
+    "id": 7,
+    "name": "Paws of Bengaluru",
+    "cat": "Animals",
+    "city": "Bengaluru",
+    "region": "Karnataka",
+    "help": [
+      "Goods",
+      "Donate",
+      "Volunteer"
+    ],
+    "text": "Rescues and treats injured street animals and runs sterilisation camps."
+  },
+  {
+    "id": 8,
+    "name": "Ganga Women's Skills Circle",
+    "cat": "Women & children",
+    "city": "Varanasi",
+    "region": "Uttar Pradesh",
+    "help": [
+      "Donate",
+      "Volunteer"
+    ],
+    "tax": true,
+    "text": "Tailoring and digital skills training so women can earn their own income."
+  },
+  {
+    "id": 9,
+    "name": "Thar Books for All",
+    "cat": "Education",
+    "city": "Jodhpur",
+    "region": "Rajasthan",
+    "help": [
+      "Goods"
+    ],
+    "need": "Hindi and English storybooks",
+    "text": "Builds small village libraries in government schools."
+  },
+  {
+    "id": 10,
+    "name": "Kolkata Blood Link",
+    "cat": "Health",
+    "city": "Kolkata",
+    "region": "West Bengal",
+    "help": [
+      "Volunteer"
+    ],
+    "need": "Donors, all blood groups",
+    "text": "Connects hospitals needing blood with registered donors."
+  },
+  {
+    "id": 11,
+    "name": "Hyderabad Anna Kitchen",
+    "cat": "Food",
+    "city": "Hyderabad",
+    "region": "Telangana",
+    "help": [
+      "Donate",
+      "Goods"
+    ],
+    "tax": true,
+    "text": "Distributes grocery kits to families during job loss and floods."
+  },
+  {
+    "id": 12,
+    "name": "Backwater Safe Home for Girls",
+    "cat": "Women & children",
+    "city": "Kochi",
+    "region": "Kerala",
+    "help": [
+      "Donate",
+      "Goods"
+    ],
+    "tax": true,
+    "text": "Shelter and schooling for girls rescued from unsafe situations."
+  },
+  {
+    "id": 13,
+    "name": "Brahmaputra River Watch",
+    "cat": "Environment",
+    "city": "Guwahati",
+    "region": "Assam",
+    "help": [
+      "Volunteer",
+      "Goods"
+    ],
+    "need": "Clean-up crews",
+    "text": "River clean-ups and flood preparedness training for riverside communities."
+  },
+  {
+    "id": 14,
+    "name": "Sabarmati Street Dog Care",
+    "cat": "Animals",
+    "city": "Ahmedabad",
+    "region": "Gujarat",
+    "help": [
+      "Volunteer",
+      "Goods"
+    ],
+    "need": "Feeding volunteers",
+    "text": "Daily feeding rounds and vaccination drives for street dogs."
+  }
+]

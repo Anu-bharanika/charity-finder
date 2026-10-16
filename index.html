@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Charity Finder · India</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@400;700&family=Noto+Sans+Devanagari:wght@400;700&family=Noto+Sans+Telugu:wght@400;700&family=Noto+Sans+Kannada:wght@400;700&family=Noto+Sans+Malayalam:wght@400;700&display=swap">
+<style>
+:root{
+  --bg:#f4f7f6; --surface:#ffffff; --ink:#15262c; --muted:#5a6b71; --line:#d6e0e0;
+  --peacock:#0f5c6e; --peacock-soft:#dcecef; --marigold:#f2a900; --marigold-ink:#5a3d00;
+  --c-education:#3b6fb6; --c-health:#c2453d; --c-food:#d98a00; --c-animals:#6a8f2f;
+  --c-elderly:#7b5ea7; --c-environment:#1f8a6a; --c-women:#b8467e;
+  box-sizing:border-box;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#0e1b20; --surface:#15272e; --ink:#e8f0f0; --muted:#9db0b5; --line:#27404a;
+    --peacock:#6cc3d4; --peacock-soft:#1a3a43; --marigold-ink:#ffd36b}
+}
+*,*::before,*::after{box-sizing:inherit}
+html{font-family:"Hind Madurai","Noto Sans Devanagari","Noto Sans Telugu","Noto Sans Kannada","Noto Sans Malayalam",system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+body{margin:0}
+.wrap{max-width:860px;margin:0 auto;padding:0 1.1rem}
+header{border-bottom:1px solid var(--line);padding:2.2rem 0 1.4rem}
+h1{font-size:clamp(1.9rem,5vw,2.7rem);line-height:1.1;margin:0 0 .5rem;font-weight:700;letter-spacing:-.01em}
+header p{margin:0;color:var(--muted);max-width:52ch}
+.notice{background:var(--peacock-soft);border-left:4px solid var(--marigold);padding:.6rem .9rem;margin:1rem 0 0;font-size:.92rem}
+.controls{display:grid;gap:.8rem;padding:1.2rem 0 .6rem}
+.row{display:flex;gap:.6rem;flex-wrap:wrap}
+input[type=search],select{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:.55rem .7rem;min-height:44px}
+input[type=search]{flex:1 1 240px}
+select{flex:0 1 200px}
+:focus-visible{outline:3px solid var(--marigold);outline-offset:2px}
+.chips{display:flex;gap:.45rem;flex-wrap:wrap}
+.chip{font:inherit;cursor:pointer;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:.3rem .85rem;min-height:36px}
+.chip[aria-pressed=true]{background:var(--peacock);border-color:var(--peacock);color:#fff}
+@media (prefers-color-scheme:dark){.chip[aria-pressed=true]{color:#0e1b20}}
+.status{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:.92rem;padding:.4rem 0 .6rem}
+.link{font:inherit;background:none;border:0;color:var(--peacock);cursor:pointer;text-decoration:underline;padding:.3rem}
+ul.list{list-style:none;margin:0;padding:0 0 3rem}
+.item{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--cat,var(--peacock));border-radius:4px;padding:.9rem 1rem;margin-bottom:.7rem;display:grid;grid-template-columns:1fr auto;gap:.2rem 1rem}
+.item h2{font-size:1.15rem;margin:0}
+.meta{color:var(--muted);font-size:.9rem}
+.item p{grid-column:1/-1;margin:.3rem 0 .2rem}
+.tags{grid-column:1/-1;display:flex;gap:.4rem;flex-wrap:wrap}
+.tag{font-size:.82rem;background:var(--peacock-soft);border-radius:4px;padding:.05rem .5rem}
+.tag.need{background:var(--marigold);color:#2a1d00}
+.save{grid-row:1;grid-column:2;font:inherit;cursor:pointer;background:none;border:1px solid var(--line);border-radius:6px;color:var(--ink);min-height:36px;padding:.2rem .7rem}
+.save[aria-pressed=true]{background:var(--marigold);border-color:var(--marigold);color:#2a1d00}
+.empty{text-align:center;padding:2.5rem 1rem;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.item{transition:border-color .15s}}
+.top{display:flex;justify-content:flex-end;margin-bottom:.8rem}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="top"><select id="lang"></select></div>
+  <h1 data-i18n="title"></h1>
+  <p data-i18n="intro"></p>
+  <p class="notice" data-i18n="notice"></p>
+</div></header>
+
+<main class="wrap">
+  <section class="controls" aria-label="Filters">
+    <div class="row">
+      <input type="search" id="q" data-i18n-ph="search">
+      <select id="region"></select>
+      <select id="help"></select>
+    </div>
+    <div class="chips" id="cats" role="group"></div>
+  </section>
+
+  <div class="status" aria-live="polite">
+    <span id="count"></span>
+    <span><button class="link" id="savedOnly" aria-pressed="false"></button>
+    <button class="link" id="reset" data-i18n="clear"></button></span>
+  </div>
+
+  <ul class="list" id="list"></ul>
+</main>
+
+<script>
+const CAT_COLORS={Food:"--c-food",Education:"--c-education",Elderly:"--c-elderly",Environment:"--c-environment",Health:"--c-health",Animals:"--c-animals","Women & children":"--c-women"};
+const CATS=Object.keys(CAT_COLORS), HELPS=["Donate","Goods","Volunteer"];
+const $=id=>document.getElementById(id);
+let CHARITIES=[], TR={}, lang="en";
+let state={q:"",region:"",help:"",cat:"",savedOnly:false};
+let saved=new Set();
+try{saved=new Set(JSON.parse(localStorage.getItem("saved")||"[]"))}catch(e){}
+const persist=()=>{try{localStorage.setItem("saved",JSON.stringify([...saved]))}catch(e){}};
+
+// Look up UI text in the current language, falling back to English
+const ui=k=>(TR[lang]&&TR[lang].ui[k])||TR.en.ui[k];
+const tr=(group,v)=>(TR[lang]&&TR[lang][group]&&TR[lang][group][v])||v;
+// Charity text can be translated per entry with text_hi, text_ta, need_hi, ... (falls back to English)
+const field=(c,k)=>c[k+"_"+lang]||c[k];
+
+function fillSelect(el,first,values,group){
+  const cur=el.value;
+  el.innerHTML="";
+  el.add(new Option(first,""));
+  values.forEach(v=>el.add(new Option(tr(group,v),v)));
+  el.value=cur;
+  el.setAttribute("aria-label",first);
+}
+
+function matches(c){
+  const q=state.q.trim().toLowerCase();
+  if(q&&!(c.name+" "+c.text+" "+(c.need||"")+" "+field(c,"text")+" "+(field(c,"need")||"")).toLowerCase().includes(q))return false;
+  if(state.region&&c.region!==state.region)return false;
+  if(state.help&&!c.help.includes(state.help))return false;
+  if(state.cat&&c.cat!==state.cat)return false;
+  if(state.savedOnly&&!saved.has(c.id))return false;
+  return true;
+}
+
+function tag(parent,text,cls){
+  const s=document.createElement("span");
+  s.className="tag"+(cls?" "+cls:"");
+  s.textContent=text;
+  parent.appendChild(s);
+}
+
+function render(){
+  document.querySelectorAll(".chip").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.cat===state.cat)));
+  $("savedOnly").setAttribute("aria-pressed",String(state.savedOnly));
+  $("savedOnly").textContent=state.savedOnly?ui("showAll"):ui("savedOnly");
+  const list=CHARITIES.filter(matches);
+  $("count").textContent=ui("found").replace("{n}",list.length);
+  const ul=$("list");ul.innerHTML="";
+  if(!list.length){
+    const li=document.createElement("li");li.className="empty";li.textContent=ui("empty");
+    ul.appendChild(li);return;
+  }
+  list.forEach(c=>{
+    const li=document.createElement("li");li.className="item";
+    li.style.setProperty("--cat","var("+CAT_COLORS[c.cat]+")");
+    const isSaved=saved.has(c.id);
+    li.innerHTML='<div><h2></h2><div class="meta"></div></div><button class="save"></button><p></p><div class="tags"></div>';
+    li.querySelector("h2").textContent=c.name;
+    li.querySelector(".meta").textContent=tr("cat",c.cat)+", "+c.city+", "+tr("region",c.region);
+    li.querySelector("p").textContent=field(c,"text");
+    const tags=li.querySelector(".tags");
+    c.help.forEach(h=>tag(tags,tr("help",h)));
+    if(c.tax)tag(tags,ui("tax"));
+    if(c.need)tag(tags,ui("needs")+" "+field(c,"need"),"need");
+    const btn=li.querySelector(".save");
+    btn.textContent=isSaved?ui("saved"):ui("save");
+    btn.setAttribute("aria-pressed",String(isSaved));
+    btn.onclick=()=>{saved.has(c.id)?saved.delete(c.id):saved.add(c.id);persist();render()};
+    ul.appendChild(li);
+  });
+}
+
+function applyLang(){
+  document.documentElement.lang=lang;
+  document.querySelectorAll("[data-i18n]").forEach(e=>e.textContent=ui(e.dataset.i18n));
+  document.querySelectorAll("[data-i18n-ph]").forEach(e=>{e.placeholder=ui(e.dataset.i18nPh);e.setAttribute("aria-label",e.placeholder)});
+  $("lang").setAttribute("aria-label",ui("lang"));
+  fillSelect($("region"),ui("allStates"),[...new Set(CHARITIES.map(c=>c.region))].sort(),"region");
+  fillSelect($("help"),ui("anyHelp"),HELPS,"help");
+  const cats=$("cats");cats.innerHTML="";
+  cats.setAttribute("aria-label",ui("allCauses"));
+  ["",...CATS].forEach(c=>{
+    const b=document.createElement("button");
+    b.className="chip";b.dataset.cat=c;
+    b.textContent=c?tr("cat",c):ui("allCauses");
+    b.onclick=()=>{state.cat=c;render()};
+    cats.appendChild(b);
+  });
+  render();
+}
+
+$("q").oninput=e=>{state.q=e.target.value;render()};
+$("region").onchange=e=>{state.region=e.target.value;render()};
+$("help").onchange=e=>{state.help=e.target.value;render()};
+$("savedOnly").onclick=()=>{state.savedOnly=!state.savedOnly;render()};
+$("reset").onclick=()=>{state={q:"",region:"",help:"",cat:"",savedOnly:false};$("q").value="";$("region").value="";$("help").value="";render()};
+$("lang").onchange=e=>{
+  lang=e.target.value;
+  try{localStorage.setItem("lang",lang)}catch(err){}
+  applyLang();
+};
+
+Promise.all(["charities.json","translations.json"].map(f=>fetch(f).then(r=>{if(!r.ok)throw new Error(f);return r.json()})))
+  .then(([data,t])=>{
+    CHARITIES=data;TR=t;
+    Object.keys(TR).forEach(code=>$("lang").add(new Option(TR[code].name,code)));
+    let pref=(navigator.language||"en").slice(0,2);
+    try{pref=localStorage.getItem("lang")||pref}catch(e){}
+    lang=TR[pref]?pref:"en";
+    $("lang").value=lang;
+    applyLang();
+  })
+  .catch(()=>{
+    $("list").innerHTML='<li class="empty">Could not load the data files. Open this page through a local server (run <code>python3 -m http.server</code> in this folder) or from GitHub Pages.</li>';
+  });
+</script>
+</body>
+</html>
